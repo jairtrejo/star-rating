@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Star rating demo</title>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <style type="text/css">
+    body{
+        text-align: center;
+        font-size: 18px;
+        font-family: Helvetica, Arial, Sans-serif;
+    }
+    .stars{
+        font-size: 30px;
+        color: #3D8EB9;
+        list-style: none;
+        margin: 0; padding: 0;
+    }
+    .stars li{
+        display: inline;
+        cursor: pointer;
+    }
+    .stars :after{
+        content: "\00a0";
+    }
+    .hidden{
+        display: none;
+    }
+    </style>
+</head>
+<body>
+    <h1>Star rating demo</h1>
+    <div id="rating-box"></div>
+    <!-- JavaScript -->
+    <script src="http://fb.me/react-0.8.0.min.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.8.0.js"></script>
+    <script src="src/ratings.js" type="text/jsx"></script>
+    <script type="text/jsx">
+        /** @jsx React.DOM */
+        var default_labels = ['Very bad', 'Bad', 'Regular', 'Good', 'Very good'];
+        var box = document.getElementById('rating-box');
+        var labels, name, i, j;
+
+        labels = box.getAttribute('data-labels');
+        name = box.getAttribute('data-name');
+
+        if(labels){
+            labels = labels.split(',');
+            for(j=0; j<labels.length; ++j){
+                labels[j] = labels[j].trim();
+            }
+        }
+
+        React.renderComponent(
+            <RatingBox name={ name } labels={ labels || default_labels } readonly={false} />, box
+        );
+    </script>
+</body>
+</html>
